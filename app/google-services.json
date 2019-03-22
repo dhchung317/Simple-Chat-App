@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "180717664137",
+    "firebase_url": "https://chat-aed03.firebaseio.com",
+    "project_id": "chat-aed03",
+    "storage_bucket": "chat-aed03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180717664137:android:add9488aea8a48e4",
+        "android_client_info": {
+          "package_name": "android.pursuit.org.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180717664137-0ibqcf2rk6olkkkihl20qqc6o7oa3ul4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4oQi-yYPofbhr5oeZ6u4RE2lbqWTo2jg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
