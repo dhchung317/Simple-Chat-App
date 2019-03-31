@@ -11,4 +11,12 @@ public class ChatLog {
         this.chattingWith = chattingWith;
         this.messages = messages;
     }
+
+    public User getChattingWith() {
+        return chattingWith;
+    }
+
+    public List<Chat> getMessages() {
+        return messages;
+    }
 }

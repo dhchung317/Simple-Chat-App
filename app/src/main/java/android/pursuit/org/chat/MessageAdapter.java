@@ -1,26 +1,33 @@
 package android.pursuit.org.chat;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.TreeMap;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
-    List<ChatLog> list;
-    int itemview;
+    TreeMap<String,ChatLog> logmap;
+    Context context;
 
-    public void setList(List<ChatLog> list) {
-        this.list = list;
+    public void updateLogs(ChatLog log){
+//        if(logmap.containsKey(log.chattingWith.uid)){
+//            logmap.remove(log.chattingWith.uid);
+//        }
+        logmap.put(log.chattingWith.username,log);
+        Log.d("updatelogs",log.messages.size() + " " + log.chattingWith.username);
         notifyDataSetChanged();
     }
 
-    public MessageAdapter(List<ChatLog> list, int itemview) {
-        this.list = list;
-        this.itemview = itemview;
+    public MessageAdapter(TreeMap<String,ChatLog> logmap,Context context) {
+        this.logmap = logmap;
+        this.context = context;
     }
 
     @NonNull
@@ -28,17 +35,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View child = LayoutInflater
                 .from(viewGroup.getContext())
-                .inflate(itemview, viewGroup, false);
+                .inflate(R.layout.saved_message_itemview, viewGroup, false);
         return new MessageViewHolder(child);
     }
-
+    @Override
     public void onBindViewHolder(@NonNull MessageViewHolder viewHolder, int i) {
-        viewHolder.onBind(list.get(i));
+        String key = (String) logmap.keySet().toArray()[i];
+            viewHolder.onBind(logmap.get(key),context);
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return logmap.size();
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
@@ -51,15 +59,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             recent_message = itemView.findViewById(R.id.saved_message);
         }
 
-        public void onBind(@NonNull ChatLog item) {
+        public void onBind(@NonNull ChatLog item,Context context) {
             user.setText(item.chattingWith.username);
-            recent_message.setText(item.messages.get(item.messages.size() - 1).message);
+                if(item.messages.size() > 0) {
+                    recent_message.setText(item.getMessages().get(item.messages.size()-1).message);
+                }
 
             itemView.setOnClickListener(v -> {
-                // FIXME fix me
-//                Intent intent = new Intent(context, ChatActivity.class);
-//                intent.putExtra(USER_KEY, item);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, ChatActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("user", item.chattingWith);
+                context.startActivity(intent);
             });
         }
     }

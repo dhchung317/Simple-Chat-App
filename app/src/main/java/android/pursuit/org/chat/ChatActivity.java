@@ -190,7 +190,6 @@ public class ChatActivity extends AppCompatActivity {
                     configureSentMessage(chatViewHolder, i);
                     break;
             }
-
         }
 
         public void setList(List<Chat> list) {
