@@ -1,1 +1,1 @@
-# TestingChatApp-broken
+# Simple-Chat-App
